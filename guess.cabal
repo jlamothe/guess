@@ -19,3 +19,10 @@ executable guess
   main-is:           guess.hs
   -- other-modules:       
   build-depends:     base ==4.*
+
+Test-Suite test-guess
+  type:              exitcode-stdio-1.0
+  main-is:           tests.hs
+  build-depends:
+    base ==4.*,
+    HUnit
