@@ -17,21 +17,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Main where
+module Pure (buildState) where
 
-import Control.Monad.Trans.State
 import System.Random
 
-import Pure
+import Config
 import Types
 
-main :: IO ()
-main = initState >>= evalStateT playGame
-
-initState :: IO GameState
-initState = fmap buildState getStdGen
-
-playGame :: StateT GameState IO ()
-playGame = undefined
+buildState :: StdGen -> GameState
+buildState g = GameState
+  { picks       = randomRs (1, maxPick) g
+  , guessesLeft = maxGuesses
+  }
 
 -- jl
