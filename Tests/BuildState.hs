@@ -49,8 +49,8 @@ checkMax val = TestLabel "upper bound" $ TestCase $ assertBool
   val <= maxPick
 
 checkGuesses :: Test
-checkGuesses = TestLabel "guessesLeft" $ TestCase $
-  guessesLeft state @?= maxGuesses
+checkGuesses = TestLabel "guessesLeft" $
+  guessesLeft state ~?= maxGuesses
 
 state :: GameState
 state = buildState $ mkStdGen 0
