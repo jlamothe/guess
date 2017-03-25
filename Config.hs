@@ -17,21 +17,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Main where
+module Config where
 
-import Control.Monad.Trans.State
-import System.Random
-
-import Pure
-import Types
-
-main :: IO ()
-main = initState >>= evalStateT playGame
-
-initState :: IO GameState
-initState = fmap buildState getStdGen
-
-playGame :: StateT GameState IO ()
-playGame = undefined
+maxPick = 1000 :: Int
+maxGuesses = 10 :: Int
 
 -- jl
