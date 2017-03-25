@@ -17,23 +17,31 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Pure (buildState, reportMessage) where
+module Tests.ReportMessage (tests) where
 
 import System.Random
+import Test.HUnit
 
-import Config
+import Pure
 import Types
 
-buildState :: StdGen -> GameState
-buildState g = GameState
-  { picks       = randomRs (1, maxPick) g
-  , guessesLeft = maxGuesses
-  }
+tests :: Test
+tests = TestLabel "reportMessage" $ TestList
+  [tests10, tests1, tests0]
 
-reportMessage :: GameState -> String
-reportMessage s = case guessesLeft s of
-  0 -> "You have no guesses left."
-  1 -> "You have 1 guess left."
-  x -> "You have " ++ show x ++ " guesses left."
+tests10 :: Test
+tests10 = TestLabel "10 guesses" $
+  reportMessage (state {guessesLeft = 10}) ~?= "You have 10 guesses left."
+
+tests1 :: Test
+tests1 = TestLabel "1 guess" $
+  reportMessage (state {guessesLeft = 1}) ~?= "You have 1 guess left."
+
+tests0 :: Test
+tests0 = TestLabel "no guesses" $
+  reportMessage (state {guessesLeft = 0}) ~?= "You have no guesses left."
+
+state :: GameState
+state = buildState (mkStdGen 0)
 
 -- jl

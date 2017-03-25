@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Main where
 
+import Control.Monad.Trans.Class
 import Control.Monad.Trans.State
 import System.Random
 
@@ -32,6 +33,9 @@ initState :: IO GameState
 initState = fmap buildState getStdGen
 
 playGame :: StateT GameState IO ()
-playGame = undefined
+playGame = reportGuesses
+
+reportGuesses :: StateT GameState IO ()
+reportGuesses = gets reportMessage >>= (lift . putStrLn)
 
 -- jl
