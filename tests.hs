@@ -24,6 +24,7 @@ import System.Exit
 import Test.HUnit
 
 import qualified Tests.BuildState as BuildState
+import qualified Tests.ReportMessage as ReportMessage
 
 main = do
   counts <- runTestTT tests
@@ -31,6 +32,6 @@ main = do
     exitFailure
 
 tests :: Test
-tests = TestList [BuildState.tests]
+tests = TestList [BuildState.tests, ReportMessage.tests]
 
 -- jl
