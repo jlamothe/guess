@@ -28,14 +28,14 @@ import Types
 
 tests :: Test
 tests = TestLabel "buildState" $ TestList
-  [checkElements, checkGuesses]
+  [checkPicks, checkGuesses]
 
-checkElements :: Test
-checkElements = TestLabel "Elements" $ TestList $
-  map checkElement $ take 5 $ zip [0..] $ picks state
+checkPicks :: Test
+checkPicks = TestLabel "picks" $ TestList $
+  map checkPick $ take 5 $ zip [0..] $ picks state
 
-checkElement :: (Int, Int) -> Test
-checkElement (index, val) = TestLabel ("Element " ++ show index) $ TestList
+checkPick :: (Int, Int) -> Test
+checkPick (index, val) = TestLabel ("element " ++ show index) $ TestList
   [checkMin val, checkMax val]
 
 checkMin :: Int -> Test

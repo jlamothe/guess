@@ -26,20 +26,14 @@ import Pure
 import Types
 
 tests :: Test
-tests = TestLabel "reportMessage" $ TestList
-  [tests10, tests1, tests0]
-
-tests10 :: Test
-tests10 = TestLabel "10 guesses" $
-  reportMessage (state {guessesLeft = 10}) ~?= "You have 10 guesses left."
-
-tests1 :: Test
-tests1 = TestLabel "1 guess" $
-  reportMessage (state {guessesLeft = 1}) ~?= "You have 1 guess left."
-
-tests0 :: Test
-tests0 = TestLabel "no guesses" $
-  reportMessage (state {guessesLeft = 0}) ~?= "You have no guesses left."
+tests = TestLabel "reportMessage" $ TestList $
+  map (\(label, val, msg) ->
+    TestLabel label $
+    reportMessage (state {guessesLeft = val}) ~?= msg)
+  [ ("10 guesses", 10, "You have 10 guesses left.")
+  , ("1 guess"   , 1,  "You have 1 guess left.")
+  , ("no guesses", 0,  "You have no guesses left.")
+  ]
 
 state :: GameState
 state = buildState (mkStdGen 0)
