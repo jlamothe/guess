@@ -17,28 +17,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Main where
+module Tests.CheckGuesses (tests) where
 
-import Control.Monad
-import Control.Monad.Trans.Class
-import Control.Monad.Trans.State
 import System.Random
+import Test.HUnit
 
 import Pure
 import Types
 
-main :: IO ()
-main = initState >>= evalStateT playGame
+tests :: Test
+tests = TestLabel "checkGuesses" $ TestList $ map
+  (\(val, result) ->
+    TestLabel ("guessesLeft = " ++ show val) $
+    checkGuesses (state {guessesLeft = val}) ~?= result)
+  [(10, True), (1, True), (0, False), ((-1), False)]
 
-initState :: IO GameState
-initState = fmap buildState getStdGen
-
-playGame :: StateT GameState IO ()
-playGame = do
-  reportGuesses
-  void $ gets checkGuesses
-
-reportGuesses :: StateT GameState IO ()
-reportGuesses = gets reportMessage >>= (lift . putStrLn)
+state :: GameState
+state = buildState (mkStdGen 0)
 
 -- jl

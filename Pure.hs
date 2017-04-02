@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -}
 
-module Pure (buildState, reportMessage) where
+module Pure (buildState, reportMessage, checkGuesses) where
 
 import System.Random
 
@@ -35,5 +35,8 @@ reportMessage s = case guessesLeft s of
   0 -> "You have no guesses left."
   1 -> "You have 1 guess left."
   x -> "You have " ++ show x ++ " guesses left."
+
+checkGuesses :: GameState -> Bool
+checkGuesses s = guessesLeft s > 0
 
 -- jl
