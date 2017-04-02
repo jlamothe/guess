@@ -28,28 +28,28 @@ import Types
 
 tests :: Test
 tests = TestLabel "buildState" $ TestList
-  [checkPicks, checkGuesses]
+  [testPicks, testGuesses]
 
-checkPicks :: Test
-checkPicks = TestLabel "picks" $ TestList $
-  map checkPick $ take 5 $ zip [0..] $ picks state
+testPicks :: Test
+testPicks = TestLabel "picks" $ TestList $
+  map testPick $ take 5 $ zip [0..] $ picks state
 
-checkPick :: (Int, Int) -> Test
-checkPick (index, val) = TestLabel ("element " ++ show index) $ TestList
-  [checkMin val, checkMax val]
+testPick :: (Int, Int) -> Test
+testPick (index, val) = TestLabel ("element " ++ show index) $ TestList
+  [testMin val, testMax val]
 
-checkMin :: Int -> Test
-checkMin val = TestLabel "lower bound" $ TestCase $ assertBool
+testMin :: Int -> Test
+testMin val = TestLabel "lower bound" $ TestCase $ assertBool
   ("Expected > 0\nGot: " ++ show val) $
   val > 0
 
-checkMax :: Int -> Test
-checkMax val = TestLabel "upper bound" $ TestCase $ assertBool
+testMax :: Int -> Test
+testMax val = TestLabel "upper bound" $ TestCase $ assertBool
   ("Expected <= " ++ show maxPick ++ "\nGot: " ++ show val) $
   val <= maxPick
 
-checkGuesses :: Test
-checkGuesses = TestLabel "guessesLeft" $
+testGuesses :: Test
+testGuesses = TestLabel "guessesLeft" $
   guessesLeft state ~?= maxGuesses
 
 state :: GameState

@@ -24,6 +24,7 @@ import System.Exit
 import Test.HUnit
 
 import qualified Tests.BuildState as BuildState
+import qualified Tests.CheckGuesses as CheckGuesses
 import qualified Tests.ReportMessage as ReportMessage
 
 main = do
@@ -32,6 +33,10 @@ main = do
     exitFailure
 
 tests :: Test
-tests = TestList [BuildState.tests, ReportMessage.tests]
+tests = TestList
+  [ BuildState.tests
+  , ReportMessage.tests
+  , CheckGuesses.tests
+  ]
 
 -- jl
