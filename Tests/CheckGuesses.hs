@@ -30,7 +30,7 @@ tests = TestLabel "checkGuesses" $ TestList $ map
   (\(val, result) ->
     TestLabel ("guessesLeft = " ++ show val) $
     checkGuesses (state {guessesLeft = val}) ~?= result)
-  [(10, True), (1, True), (0, False), ((-1), False)]
+  [(10, True), (1, True), (0, False), (-1, False)]
 
 state :: GameState
 state = buildState (mkStdGen 0)
